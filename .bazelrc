@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2019-2024 Second State INC
+
+# C++ standard
+build --cxxopt=-std=c++20
+build --host_cxxopt=-std=c++20
+
+# Enable LLVM for AOT support
+build --define=WASMEDGE_USE_LLVM=true
+
+# Optimization flags
+build:opt --compilation_mode=opt
+build:opt --copt=-O3
+
+# Debug flags
+build:dbg --compilation_mode=dbg
+build:dbg --copt=-g
+
+# Platform-specific configurations
+build:linux --cxxopt=-fPIC
+build:macos --cxxopt=-fPIC
+build:windows --cxxopt=/std:c++20
+
+# Resource limits
+build --jobs=auto

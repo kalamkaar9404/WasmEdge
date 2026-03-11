@@ -1,0 +1,43 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2019-2024 Second State INC
+
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+# WasmEdge core library with LLVM-based AOT support
+cc_library(
+    name = "wasmedge_aot",
+    srcs = glob([
+        "lib/**/*.cpp",
+        "lib/**/*.h",
+    ]),
+    hdrs = glob([
+        "include/**/*.h",
+        "include/**/*.hpp",
+    ]),
+    includes = [
+        "include",
+    ],
+    deps = [
+        "@llvm-project//llvm:Core",
+        "@llvm-project//llvm:Support",
+        "@llvm-project//llvm:Target",
+        "@llvm-project//llvm:MC",
+        "@llvm-project//llvm:Object",
+        "@llvm-project//llvm:OrcJIT",
+        "@llvm-project//llvm:Passes",
+        "@llvm-project//llvm:TransformUtils",
+        "@llvm-project//llvm:native",
+    ],
+    copts = [
+        "-std=c++20",
+        "-DWASMEDGE_USE_LLVM",
+    ],
+    linkopts = select({
+        "@platforms//os:linux": ["-ldl", "-lpthread"],
+        "@platforms//os:macos": ["-ldl"],
+        "@platforms//os:windows": [],
+        "//conditions:default": [],
+    }),
+)

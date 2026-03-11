@@ -32,6 +32,20 @@ WasmEdge is a lightweight, high-performance, and extensible WebAssembly runtime.
 🛠 Manage and orchestrate Wasm runtimes using [Kubernetes](https://wasmedge.org/docs/category/deploy-wasmedge-apps-in-kubernetes), [data streaming frameworks](https://wasmedge.org/docs/embed/use-case/yomo), and [blockchains](https://medium.com/ethereum-on-steroids/running-ethereum-smart-contracts-in-a-substrate-blockchain-56fbc27fc95a) \
 📚 **[Check out our official documentation](https://wasmedge.org/docs/)**
 
+## Building with Bazel
+
+WasmEdge supports Bazel build system with LLVM for AOT (Ahead-of-Time) compilation:
+
+```bash
+# Build WasmEdge with AOT support
+bazel build //:wasmedge_aot
+
+# Build with optimization
+bazel build --config=opt //:wasmedge_aot
+```
+
+For CMake builds, see the [official build documentation](https://wasmedge.org/docs/category/build-wasmedge-from-source).
+
 # Introduction
 
 The WasmEdge Runtime provides a well-defined execution sandbox for its contained WebAssembly bytecode program. The runtime offers isolation and protection for operating system resources (e.g., file system, sockets, environment variables, processes) and memory space. The most important use case for WasmEdge is to safely execute user-defined or community-contributed code as plug-ins in a software product (e.g., SaaS, software-defined vehicles, edge nodes, or even blockchain nodes). It enables third-party developers, vendors, suppliers, and community members to extend and customize the software product. **[Learn more here](https://wasmedge.org/docs/contribute/users)**
